@@ -14,6 +14,8 @@ const loginRouter = require('./router/loginRouter.js');
 const registerRouter = require('./router/registerRouter.js');
 
 
+const {myEmitter} = require('./services/faceApiService.js')
+
 const app = express();
 
 app.use(cors({
@@ -83,11 +85,12 @@ const server = app.listen(PORT, function() {
 })
 const io = new Server(server, {
     pingTimeout: 600000,
-    cors: "https://face-auth-client.vercel.app"
+    // cors: "https://face-auth-client.vercel.app"
+    cors: "*"
 });
 
 let userId = null;
-io.on("connection",(socket) => {
+io.on("connection", (socket) => {
     console.log("socket connected");
     socket.on("subscribe" , (uuid)=> {
         console.log(uuid);
@@ -95,5 +98,8 @@ io.on("connection",(socket) => {
         socket.join(uuid);
     })
 })
+myEmitter.on('send:logs', (data) => {
+    io.to(userId).emit("loader:data", {counter: data});
+});
 
-module.exports = {io, server, userId};
+
