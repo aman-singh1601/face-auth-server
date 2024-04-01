@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 require("dotenv").config();
 const bodyParser = require('body-parser');
+const base64Img = require('base64-img');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const { Server} = require('socket.io');
