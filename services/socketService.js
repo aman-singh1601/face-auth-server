@@ -1,7 +1,8 @@
 const { Server} = require('socket.io');
+const { server}= require('../index');
 
-const io = new Server({
-    cors: "*"
+const io = new Server(server, {
+    cors: "https://face-auth-client.vercel.app"
 });
 
 const userToSocketMap = new Map();
@@ -12,6 +13,5 @@ io.on("connection",(socket) => {
         socket.join(email);
     })
 })
-io.listen(6970, () => console.log(`socket running on port ${9001}`));
 
 module.exports = {io, userToSocketMap};

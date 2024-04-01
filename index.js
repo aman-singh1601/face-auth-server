@@ -4,7 +4,7 @@ require("dotenv").config();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
-const base64Img = require('base64-img');
+
 
 const {MongoDbConnect} = require('./connection.js');
 const {LoadModals} = require('./services/faceApiService.js');
@@ -77,6 +77,8 @@ LoadModals();
 MongoDbConnect(DB_URL);
 
 
-app.listen(PORT, function() {
+const server = app.listen(PORT, function() {
     console.log("Server listening on port " + PORT);
 })
+
+module.exports = { server};
