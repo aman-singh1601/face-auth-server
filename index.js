@@ -86,12 +86,6 @@ const io = new Server(server, {
 });
 
 
-io.on("connection",(socket) => {
-    console.log("socket connected");
-    socket.on("subscribe" , (email)=> {
-        console.log(email);
-        socket.join(email);
-    })
-})
+
 
 module.exports = {io, server};
