@@ -85,7 +85,14 @@ const io = new Server(server, {
     cors: "https://face-auth-client.vercel.app"
 });
 
+let userId = null;
+io.on("connection",(socket) => {
+    console.log("socket connected");
+    socket.on("subscribe" , (uuid)=> {
+        console.log(uuid);
+        userId = uuid;
+        socket.join(uuid);
+    })
+})
 
-
-
-module.exports = {io, server};
+module.exports = {io, server, userId};

@@ -4,17 +4,8 @@ const FaceModal = require('../schema/faceSchema');
 const canvas = require('canvas');
 faceapi.env.monkeyPatch({Canvas, Image});
 
-const { io} = require('../index');
+const { io, userId} = require('../index');
 
-let userId = null;
-io.on("connection",(socket) => {
-    console.log("socket connected");
-    socket.on("subscribe" , (uuid)=> {
-        console.log(uuid);
-        userId = uuid;
-        socket.join(uuid);
-    })
-})
 
 async function LoadModals() {
     await faceapi.nets.faceRecognitionNet.loadFromDisk("./models");
