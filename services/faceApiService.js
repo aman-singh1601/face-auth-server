@@ -31,9 +31,9 @@ async function uploadLabeledImages(images, label) {
         detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
         descriptions.push(detections.descriptor);
 
-
+        console.log(`Progress 25`);
         io.to(userId).emit("loader:data", {counter: 25});
-        console.log(`Progress ${counter.toPrecision(2)}`);
+
 
         //handling face 2
         img = await canvas.loadImage(images[0]);

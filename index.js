@@ -82,6 +82,7 @@ const server = app.listen(PORT, function() {
     console.log("Server listening on port " + PORT);
 })
 const io = new Server(server, {
+    pingTimeout: 600000,
     cors: "https://face-auth-client.vercel.app"
 });
 
