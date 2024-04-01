@@ -32,7 +32,7 @@ async function uploadLabeledImages(images, label) {
         descriptions.push(detections.descriptor);
 
         console.log(`Progress 25`);
-        io.to(userId).emit("loader:data", {counter: 25});
+        io.emit("loader:data", {counter: 25});
 
 
         //handling face 2
@@ -43,7 +43,7 @@ async function uploadLabeledImages(images, label) {
         descriptions.push(detections.descriptor);
 
 
-        io.to(userId).emit("loader:data", {counter: counter.toPrecision(2)});
+        io.emit("loader:data", {counter: counter.toPrecision(2)});
         console.log(`Progress ${counter.toPrecision(2)}`);
 
         //handling face 3
@@ -54,7 +54,7 @@ async function uploadLabeledImages(images, label) {
         descriptions.push(detections.descriptor);
 
 
-        io.to(userId).emit("loader:data", {counter: counter.toPrecision(2)});
+        io.emit("loader:data", {counter: counter.toPrecision(2)});
         console.log(`Progress ${counter.toPrecision(2)}`);
 
 
@@ -64,7 +64,7 @@ async function uploadLabeledImages(images, label) {
         });
         console.log("progress 100");
         await createFace.save();
-        io.to(userId).emit("loader:data", {counter: "100"});
+        io.emit("loader:data", {counter: "100"});
         return true;
         
     } catch (error) {
@@ -79,7 +79,7 @@ async function getDescriptorsFromDB(image) {
         //Get all the face data from the mongodb and loop through each of them to read the data
         let faces = await FaceModal.find();
         let counter = 0;
-        io.to(userId).emit("loader:data", {counter: 20});
+        io.emit("loader:data", {counter: 20});
         for(let i = 0; i < faces.length; i++) {
             //Change the face data descriptors from Objects to float32Array type
             for(let j = 0; j < faces[i].descriptions.length; j++) {
@@ -88,7 +88,7 @@ async function getDescriptorsFromDB(image) {
             //turn the DB face docs to 
             faces[i] = new faceapi.LabeledFaceDescriptors(faces[i].label, faces[i].descriptions);
             counter = (i / faces.length) * 100;
-            io.to(userId).emit("loader:data", {counter: counter.toPrecision(2)});
+            io.emit("loader:data", {counter: counter.toPrecision(2)});
             console.log(`Progress ${counter.toPrecision(2)}`);
         }
         //load face mathcer to find the matching face
@@ -107,7 +107,7 @@ async function getDescriptorsFromDB(image) {
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
 
         const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
-        io.to(userId).emit("loader:data", {counter: "100"});
+        io.emit("loader:data", {counter: "100"});
         return results;
     } catch (error) {
 
