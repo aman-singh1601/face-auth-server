@@ -4,7 +4,7 @@ require("dotenv").config();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
-
+const { Server} = require('socket.io');
 
 const {MongoDbConnect} = require('./connection.js');
 const {LoadModals} = require('./services/faceApiService.js');
@@ -80,5 +80,17 @@ MongoDbConnect(DB_URL);
 const server = app.listen(PORT, function() {
     console.log("Server listening on port " + PORT);
 })
+const io = new Server(server, {
+    cors: "https://face-auth-client.vercel.app"
+});
 
-module.exports = { server};
+
+io.on("connection",(socket) => {
+    console.log("socket connected");
+    socket.on("subscribe" , (email)=> {
+        console.log(email);
+        socket.join(email);
+    })
+})
+
+module.exports = {io, server};

@@ -4,7 +4,7 @@ const FaceModal = require('../schema/faceSchema');
 const canvas = require('canvas');
 faceapi.env.monkeyPatch({Canvas, Image});
 
-const { io} = require('../services/socketService');
+const { io} = require('../index');
 
 
 
