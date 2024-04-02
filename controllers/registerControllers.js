@@ -10,12 +10,13 @@ async function handleRegister(req, res) {
 
     let path1 = `/uploads/${label}1.jpg`;
     let path2 = `/uploads/${label}2.jpg`;
-    let path3 = `/uploads/${label}3.jpg`;
+    // let path3 = `/uploads/${label}3.jpg`;
+    
     setTimeout(() => {
         uploadLabeledImages([
         path.join(__dirname, "../", path1),
         path.join(__dirname, "../", path2),
-        path.join(__dirname, "../", path3)
+        // path.join(__dirname, "../", path3)
         ], label).then((result) => {
             res.json({
                 message: "Face data stored successfully!",

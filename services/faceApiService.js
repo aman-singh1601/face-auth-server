@@ -41,24 +41,24 @@ async function uploadLabeledImages(images, label) {
 
 
         //handling face 2
-        img = await canvas.loadImage(images[0]);
+        img = await canvas.loadImage(images[1]);
         counter = (1 / images.length) * 100;
 
         detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
         descriptions.push(detections.descriptor);
 
 
-        emitLogs(counter.toPrecision(2));
+        emitLogs(50);
 
         //handling face 3
-        img = await canvas.loadImage(images[0]);
-        counter = (2 / images.length) * 100;
+        // img = await canvas.loadImage(images[0]);
+        // counter = (2 / images.length) * 100;
 
-        detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-        descriptions.push(detections.descriptor);
+        // detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+        // descriptions.push(detections.descriptor);
 
 
-        emitLogs(counter.toPrecision(2));
+        // emitLogs(counter.toPrecision(2));
 
 
         const createFace = new FaceModal({

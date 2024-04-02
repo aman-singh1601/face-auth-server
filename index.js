@@ -43,7 +43,7 @@ const middleee = (req, res, next) => {
             //for handling register user
             let file1 = `${req.body.label}1`;
             let file2 = `${req.body.label}2`;
-            let file3 = `${req.body.label}3`;
+            // let file3 = `${req.body.label}3`;
             base64Img.img(req.body.File1, './uploads', file1,  (err, filePath) => {
                 req.files.File1 =  path.join( __dirname, filePath);
                 
@@ -55,11 +55,11 @@ const middleee = (req, res, next) => {
         
             });
         
-            base64Img.img(req.body.File3, './uploads', file3,  (err, filePath) => {
-                // tmp = {...tmp, File3: path.join( __dirname, filePath)};
-                req.files.File3 =  path.join( __dirname, filePath);
-                // console.log("object inside ::",req.files);
-            });
+            // base64Img.img(req.body.File3, './uploads', file3,  (err, filePath) => {
+            //     // tmp = {...tmp, File3: path.join( __dirname, filePath)};
+            //     req.files.File3 =  path.join( __dirname, filePath);
+            //     // console.log("object inside ::",req.files);
+            // });
     }
 
     next();
@@ -85,8 +85,8 @@ const server = app.listen(PORT, function() {
 })
 const io = new Server(server, {
     pingTimeout: 600000,
-    // cors: "https://face-auth-client.vercel.app"
-    cors: "*"
+    cors: "https://face-auth-client.vercel.app"
+    // cors: "*"
 });
 
 let userId = null;
