@@ -99,6 +99,7 @@ io.on("connection", (socket) => {
     })
 })
 myEmitter.on('send:logs', (data) => {
+    console.log("progress : ", data);
     io.to(userId).emit("loader:data", {counter: data});
 });
 
